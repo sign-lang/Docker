@@ -1,0 +1,9 @@
+FROM centos:7
+
+RUN yum install -y \
+	gcc \
+	make \
+ && yum clean all
+
+ENV CC gcc
+ENV SIGN_HOST centos7-gcc

@@ -1,0 +1,10 @@
+FROM fedora:25
+
+RUN dnf --setopt=install_weak_deps=False --best install -y \
+	findutils \
+	gcc \
+	make \
+ && dnf clean all
+
+ENV CC gcc
+ENV SIGN_HOST fedora25-gcc

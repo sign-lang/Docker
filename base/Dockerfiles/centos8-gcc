@@ -1,0 +1,10 @@
+FROM centos:8
+
+RUN yum install -y \
+	diffutils \
+	gcc \
+	make \
+ && yum clean all
+
+ENV CC gcc
+ENV SIGN_HOST centos8-gcc

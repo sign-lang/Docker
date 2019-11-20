@@ -1,0 +1,30 @@
+FROM debian:9.2
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Handle end of life
+RUN apt-get -qq update; \
+	if [ $? -eq 100 ]; \
+	then \
+		echo 'APT::Get::AllowUnauthenticated "true";' >> /etc/apt/apt.conf; \
+		echo 'Acquire::Check-Valid-Until false;' >> /etc/apt/apt.conf; \
+		sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list; \
+		sed -i '/updates/d' /etc/apt/sources.list; \
+	fi; \
+	apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+RUN apt-get -qq update \
+ && apt-get -qq --no-install-recommends install \
+	gcc \
+	clang \
+	make \
+ && apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+ENV CC clang
+ENV SIGN_HOST debian9.2-clang

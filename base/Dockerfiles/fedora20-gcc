@@ -1,0 +1,9 @@
+FROM fedora:20
+
+RUN yum install -y \
+	gcc \
+	make \
+ && yum clean all
+
+ENV CC gcc
+ENV SIGN_HOST fedora20-gcc

@@ -1,0 +1,27 @@
+FROM ubuntu:16.10
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Handle end of life
+RUN apt-get -qq update; \
+	if [ $? -eq 100 ]; \
+	then \
+		sed -i -r 's/(archive|security).ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list; \
+	fi; \
+	apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+RUN apt-get -qq update \
+ && apt-get -qq --no-install-recommends install \
+	gcc \
+	clang \
+	make \
+ && apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+ENV CC clang
+ENV SIGN_HOST ubuntu16.10-clang

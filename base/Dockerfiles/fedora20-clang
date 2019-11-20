@@ -1,0 +1,10 @@
+FROM fedora:20
+
+RUN yum install -y \
+	gcc \
+	clang \
+	make \
+ && yum clean all
+
+ENV CC clang
+ENV SIGN_HOST fedora20-clang

@@ -1,0 +1,12 @@
+FROM fedora:21
+
+RUN yum install -y \
+	yum-plugin-ovl \
+ && yum install -y \
+	gcc \
+	clang \
+	make \
+ && yum clean all
+
+ENV CC clang
+ENV SIGN_HOST fedora21-clang

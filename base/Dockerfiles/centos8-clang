@@ -1,0 +1,10 @@
+FROM centos:8
+
+RUN yum install -y \
+	diffutils \
+	clang \
+	make \
+ && yum clean all
+
+ENV CC clang
+ENV SIGN_HOST centos8-clang

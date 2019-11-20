@@ -1,0 +1,11 @@
+FROM fedora:30
+
+RUN dnf --setopt=install_weak_deps=False --best install -y \
+	findutils \
+	gcc \
+	clang \
+	make \
+ && dnf clean all
+
+ENV CC clang
+ENV SIGN_HOST fedora30-clang

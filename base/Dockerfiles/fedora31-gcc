@@ -1,0 +1,11 @@
+FROM fedora:31
+
+RUN dnf --setopt=install_weak_deps=False --best install -y \
+	diffutils \
+	findutils \
+	gcc \
+	make \
+ && dnf clean all
+
+ENV CC gcc
+ENV SIGN_HOST fedora31-gcc
