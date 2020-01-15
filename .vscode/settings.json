@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"**/base/Dockerfiles/*" : "dockerfile"
+		"**/base/Dockerfiles/*" : "dockerfile",
+		"**/build/Dockerfiles/*" : "dockerfile"
 	}
 }

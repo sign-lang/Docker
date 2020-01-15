@@ -1,0 +1,20 @@
+FROM signlang/base:alpine3.10-clang AS Builder
+
+ENV SIGN_HOST=
+
+RUN apk --no-cache add \
+	git
+
+COPY ./signc /signc
+RUN git clone --branch 0.0.1 /signc /src
+RUN make -C /src install
+
+
+FROM signlang/base:alpine3.10-clang
+
+RUN apk --no-cache add \
+	git
+
+COPY --from=Builder /src/bin/signc /bin/signc
+
+ENV SIGN_HOST=
