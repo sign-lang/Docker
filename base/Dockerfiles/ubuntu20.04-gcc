@@ -1,0 +1,27 @@
+FROM ubuntu:20.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Handle end of life
+RUN apt-get -qq update; \
+	if [ $? -eq 100 ]; \
+	then \
+		sed -i -r 's/(archive|security).ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list; \
+	fi; \
+	apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+RUN apt-get -qq update \
+ && apt-get -qq --no-install-recommends install \
+	libc-dev \
+	gcc \
+	make \
+ && apt-get -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
+
+ENV CC gcc
+ENV SIGN_HOST ubuntu20.04-gcc
