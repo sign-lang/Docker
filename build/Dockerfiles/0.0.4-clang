@@ -1,0 +1,15 @@
+FROM signlang/build:0.0.3-clang AS Builder
+
+COPY ./signc /signc
+RUN git clone --branch 0.0.4 /signc /src
+RUN make BIN_DIR=/bin -C /src install
+
+
+FROM signlang/base:alpine3.11-clang
+
+RUN apk --no-cache add \
+	git
+
+COPY --from=Builder /bin/signc /bin/signc
+
+ENV SIGN_HOST=
